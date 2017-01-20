@@ -15,22 +15,50 @@
  */
 package com.example.android.sunshine;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
+import com.example.android.sunshine.utilities.NetworkUtils;
+import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
+import com.example.android.sunshine.utilities.SunshineDateUtils;
+import com.example.android.sunshine.utilities.SunshineWeatherUtils;
+
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (1) Create a field to store the weather display TextView
+    // TODO (x1) Create a field to store the weather display TextView
+    private TextView weatherTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
-        // TODO (2) Use findViewById to get a reference to the weather display TextView
+        weatherTextView = (TextView) findViewById(R.id.tv_weather_data);
 
-        // TODO (3) Create an array of Strings that contain fake weather data
+        String[] days = {"Today", "Tomorrow", "April 21 ", "April 22", "April 23", "April 24"};
+        String[] states = {"Clear", "Cloudy", "Rainy", "Thunderstorms", "Partly Cloudy", "Stormy"};
 
-        // TODO (4) Append each String from the fake weather data array to the TextView
+        Random ran = new Random();
+        int max, min;
+        String state;
+
+        for (String day : days) {
+            // Dummy temperature generator
+            min = 3 + ran.nextInt(31);      // Range 3 to 33
+            max = min + ran.nextInt(11);    // Range min to min+10
+            state = states[ran.nextInt(states.length)];
+
+            weatherTextView.append(max + "ºC / " + min + "ºC - " + state + " - " + day + "\n");
+        }
+
+        // TODO (x2) Use findViewById to get a reference to the weather display TextView
+        // TODO (x3) Create an array of Strings that contain fake weather data
+        // TODO (x4) Append each String from the fake weather data array to the TextView
     }
 }

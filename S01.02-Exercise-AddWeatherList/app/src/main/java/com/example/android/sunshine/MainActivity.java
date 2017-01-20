@@ -41,20 +41,24 @@ public class MainActivity extends AppCompatActivity {
 
         weatherTextView = (TextView) findViewById(R.id.tv_weather_data);
 
-        String[] days = {"Today", "Tomorrow", "April 21 ", "April 22", "April 23", "April 24"};
+        String[] days = {"Today", "Tomorrow", "April 21 ", "April 22", "April 23", "April 24",
+                "April 25", "April 26", "April 27", "April 29", "April 30", "May 1", "May 2",
+                "May 3", "May 4", "May 5", "May 6", "May 7", "May 8", "May 9", "May 10", "May 11",
+                "May 12", "May 13", "May 14", "May 15", "May 16", "May 17"};
         String[] states = {"Clear", "Cloudy", "Rainy", "Thunderstorms", "Partly Cloudy", "Stormy"};
 
         Random ran = new Random();
         int max, min;
-        String state;
+        String state = null, lineJump;
 
         for (String day : days) {
             // Dummy temperature generator
             min = 3 + ran.nextInt(31);      // Range 3 to 33
             max = min + ran.nextInt(11);    // Range min to min+10
+            lineJump = state == null ? "" : "\n";
             state = states[ran.nextInt(states.length)];
 
-            weatherTextView.append(max + "ºC / " + min + "ºC - " + state + " - " + day + "\n");
+            weatherTextView.append(lineJump + max + "ºC / " + min + "ºC - " + state + " - " + day);
         }
 
         // TODO (x2) Use findViewById to get a reference to the weather display TextView

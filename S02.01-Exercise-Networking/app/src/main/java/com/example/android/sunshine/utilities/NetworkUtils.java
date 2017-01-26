@@ -15,9 +15,15 @@
  */
 package com.example.android.sunshine.utilities;
 
+import android.net.Uri;
+import android.util.Log;
+
+import com.example.android.sunshine.BuildConfig;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -28,13 +34,14 @@ public final class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String DYNAMIC_WEATHER_URL =
-            "https://andfun-weather.udacity.com/weather";
+//    private static final String DYNAMIC_WEATHER_URL =
+//            "https://andfun-weather.udacity.com/weather";
+//    private static final String STATIC_WEATHER_URL =
+//            "https://andfun-weather.udacity.com/staticweather";
+//    private static final String FORECAST_BASE_URL = STATIC_WEATHER_URL;
 
-    private static final String STATIC_WEATHER_URL =
-            "https://andfun-weather.udacity.com/staticweather";
-
-    private static final String FORECAST_BASE_URL = STATIC_WEATHER_URL;
+    private static final String OPEN_WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
+    private static final String API_KEY = BuildConfig.OPEN_WEATHER_MAP_API_KEY;
 
     /*
      * NOTE: These values only effect responses from OpenWeatherMap, NOT from the fake weather
@@ -50,13 +57,13 @@ public final class NetworkUtils {
     /* The number of days we want our API to return */
     private static final int numDays = 14;
 
-    final static String QUERY_PARAM = "q";
-    final static String LAT_PARAM = "lat";
-    final static String LON_PARAM = "lon";
-    final static String FORMAT_PARAM = "mode";
-    final static String UNITS_PARAM = "units";
-    final static String DAYS_PARAM = "cnt";
-
+    private final static String QUERY_PARAM = "q";
+//    final static String LAT_PARAM = "lat";
+//    final static String LON_PARAM = "lon";
+    private final static String FORMAT_PARAM = "mode";
+    private final static String UNITS_PARAM = "units";
+    private final static String API_KEY_PARAM = "APPID";
+//    final static String DAYS_PARAM = "cnt";
     /**
      * Builds the URL used to talk to the weather server using a location. This location is based
      * on the query capabilities of the weather provider that we are using.
@@ -65,8 +72,22 @@ public final class NetworkUtils {
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String locationQuery) {
-        // TODO (1) Fix this method to return the URL used to query Open Weather Map's API
-        return null;
+
+        // TODO (x1) Fix this method to return the URL used to query Open Weather Map's API
+        Uri builtUri = Uri.parse(OPEN_WEATHER_BASE_URL).buildUpon()
+                .appendQueryParameter(QUERY_PARAM, locationQuery)
+                .appendQueryParameter(FORMAT_PARAM, "json")
+                .appendQueryParameter(UNITS_PARAM, "metric")
+                .appendQueryParameter(API_KEY_PARAM, API_KEY)
+                .build();
+
+        try{
+            Log.i(TAG, "buildUrl: URL built: " + builtUri.toString());
+            return new URL(builtUri.toString());
+        }catch (MalformedURLException ex){
+            Log.e(TAG, "buildUrl", ex);
+            return null;
+        }
     }
 
     /**

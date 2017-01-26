@@ -49,20 +49,19 @@ public final class OpenWeatherJsonUtils {
         /* Weather information. Each day's forecast info is an element of the "list" array */
         final String OWM_LIST = "list";
 
-        /* All temperatures are children of the "temp" object */
-        final String OWM_TEMPERATURE = "temp";
+        /* All temperatures are children of the "temp" object */    // Not in OpenWeatherMap
+//        final String OWM_TEMPERATURE = "temp";
 
         /* Max temperature for the day */
-        final String OWM_MAX = "max";
-        final String OWM_MIN = "min";
+        final String OWM_MAX = "temp_max";
+        final String OWM_MIN = "temp_min";
 
         final String OWM_WEATHER = "weather";
         final String OWM_DESCRIPTION = "main";
 
         final String OWM_MESSAGE_CODE = "cod";
 
-        /* String array to hold each day's weather String */
-        String[] parsedWeatherData = null;
+
 
         JSONObject forecastJson = new JSONObject(forecastJsonStr);
 
@@ -82,13 +81,14 @@ public final class OpenWeatherJsonUtils {
             }
         }
 
-        JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
-
-        parsedWeatherData = new String[weatherArray.length()];
-
         long localDate = System.currentTimeMillis();
         long utcDate = SunshineDateUtils.getUTCDateFromLocal(localDate);
         long startDay = SunshineDateUtils.normalizeDate(utcDate);
+
+        JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
+
+        /* String array to hold each day's weather String */
+        String[] parsedWeatherData = new String[weatherArray.length()];
 
         for (int i = 0; i < weatherArray.length(); i++) {
             String date;
@@ -125,9 +125,11 @@ public final class OpenWeatherJsonUtils {
              * It confuses everybody. Temp could easily mean any number of things, including
              * temperature, temporary and is just a bad variable name.
              */
-            JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
-            high = temperatureObject.getDouble(OWM_MAX);
-            low = temperatureObject.getDouble(OWM_MIN);
+
+            JSONObject mainObject = dayForecast.getJSONObject(OWM_DESCRIPTION);
+            // For some reason high and low are the same values in OpenWeatherApp
+            high = mainObject.getDouble(OWM_MAX);
+            low = mainObject.getDouble(OWM_MIN);
             highAndLow = SunshineWeatherUtils.formatHighLows(context, high, low);
 
             parsedWeatherData[i] = date + " - " + description + " - " + highAndLow;

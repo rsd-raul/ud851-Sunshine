@@ -29,6 +29,7 @@ import com.example.android.sunshine.data.SunshinePreferences;
 public final class SunshineWeatherUtils {
 
     private static final String LOG_TAG = SunshineWeatherUtils.class.getSimpleName();
+    public static final String WEATHER = "Weather_Data";
 
     /**
      * This method will convert a temperature from Celsius to Fahrenheit.

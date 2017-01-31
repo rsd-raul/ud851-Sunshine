@@ -18,19 +18,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".MainActivity">
+      tools:context=".DetailActivity">
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_share"
         android:orderInCategory="1"
-        android:title="@string/action_refresh"
+        android:title="@string/action_share"
         app:showAsAction="ifRoom"
-        android:icon="@android:drawable/stat_notify_sync"/>
-
-    <!--TODO (x1) Add a menu item to open the map-->
-    <item
-        android:id="@+id/action_map"
-        android:orderInCategory="2"
-        android:title="@string/action_map"
-        app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_dialog_map"/>
+        android:icon="@android:drawable/ic_menu_share"/>
 </menu>

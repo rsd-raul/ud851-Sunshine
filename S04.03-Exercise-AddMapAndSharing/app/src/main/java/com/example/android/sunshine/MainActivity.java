@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.ForecastAdapter.ForecastAdapterOnClickHandler;
 import com.example.android.sunshine.data.SunshinePreferences;
@@ -215,14 +216,34 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            mForecastAdapter.setWeatherData(null);
-            loadWeatherData();
-            return true;
+        switch (id){
+            case R.id.action_refresh:
+                mForecastAdapter.setWeatherData(null);
+                loadWeatherData();
+                return true;
+
+            // TODO (x2) Launch the map when the map menu item is clicked
+            case R.id.action_map:
+                double[] location = SunshinePreferences.getLocationCoordinates(this);
+                Uri builtUri = new Uri.Builder()
+                        .scheme("geo")
+                        .path(Double.toString(location[0])+"," + Double.toString(location[1]))
+                        .build();
+                Log.i(TAG, "URI built: " + builtUri.toString());
+                showMap(builtUri);
+                return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showMap(Uri geoLocation) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+        else
+            Toast.makeText(this, "You need a Navigation app to open this!",
+                    Toast.LENGTH_LONG).show();
     }
 }

@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,7 @@ import com.example.android.sunshine.ForecastAdapter.ForecastAdapterOnClickHandle
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.utilities.NetworkUtils;
 import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
+import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 import java.net.URL;
 
@@ -119,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        // TODO (1) Pass the weather to the DetailActivity
+        // TODO (x1) Pass the weather to the DetailActivity
+        intentToStartDetailActivity.putExtra(SunshineWeatherUtils.WEATHER, weatherForDay);
         startActivity(intentToStartDetailActivity);
     }
 

@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -35,7 +34,6 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-
     // TODO (x3) Create a menu with an item with id of action_share
     // TODO (x4) Display the menu and implement the forecast sharing functionality
     @Override
@@ -43,25 +41,21 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.share_menu, menu);
+
+        MenuItem shareOption = menu.getItem(R.id.action_share);
+
+        String weatherInfo = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        if(weatherInfo != null && !weatherInfo.equals(""))
+            shareOption.setIntent(getShareIntent(weatherInfo));
+        else
+            Log.e("DetailActivity", "onOptionsItemSelected: No weather info received");
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_share:
-                String weatherInfo = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-                if(weatherInfo == null || weatherInfo.equals(""))
-                    return false;       // false?
-
-                Intent shareIntent = ShareCompat.IntentBuilder.from(this)
-                        .setType("text/plain")
-                        .setText(weatherInfo)
-                        .getIntent();
-
-                startActivity(shareIntent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private Intent getShareIntent(String info){
+        return ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText(info + FORECAST_SHARE_HASHTAG)
+                .getIntent();
     }
 }

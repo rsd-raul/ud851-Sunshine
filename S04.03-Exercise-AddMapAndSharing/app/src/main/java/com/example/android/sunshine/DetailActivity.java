@@ -39,23 +39,16 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.share_menu, menu);
-
+        getMenuInflater().inflate(R.menu.share_menu, menu);
         MenuItem shareOption = menu.getItem(R.id.action_share);
-
-        String weatherInfo = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-        if(weatherInfo != null && !weatherInfo.equals(""))
-            shareOption.setIntent(getShareIntent(weatherInfo));
-        else
-            Log.e("DetailActivity", "onOptionsItemSelected: No weather info received");
+        shareOption.setIntent(getShareIntent());
         return true;
     }
 
-    private Intent getShareIntent(String info){
+    private Intent getShareIntent(){
         return ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
-                .setText(info + FORECAST_SHARE_HASHTAG)
+                .setText(mForecast + FORECAST_SHARE_HASHTAG)
                 .getIntent();
     }
 }

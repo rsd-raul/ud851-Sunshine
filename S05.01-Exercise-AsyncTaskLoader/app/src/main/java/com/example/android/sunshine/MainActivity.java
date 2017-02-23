@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             @Override
             protected void onStartLoading() {
                 super.onStartLoading();
-                
+
                 if(mWeatherData == null){
                     mLoadingIndicator.setVisibility(View.VISIBLE);
                     forceLoad();

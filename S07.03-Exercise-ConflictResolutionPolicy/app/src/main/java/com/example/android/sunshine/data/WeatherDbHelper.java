@@ -24,15 +24,15 @@ import com.example.android.sunshine.data.WeatherContract.WeatherEntry;
 /**
  * Manages a local database for weather data.
  */
-public class WeatherDbHelper extends SQLiteOpenHelper {
+class WeatherDbHelper extends SQLiteOpenHelper {
 
     /*
      * This is the name of our database. Database names should be descriptive and end with the
      * .db extension.
      */
-    public static final String DATABASE_NAME = "weather.db";
+    private static final String DATABASE_NAME = "weather.db";
 
-//  TODO (2) Increment the database version after changing the create table statement
+//  TODO (x2) Increment the database version after changing the create table statement
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
@@ -74,21 +74,15 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                  */
                 WeatherEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 
-                WeatherEntry.COLUMN_DATE       + " INTEGER NOT NULL, "                 +
-
-                WeatherEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL, "                 +
-
-                WeatherEntry.COLUMN_MIN_TEMP   + " REAL NOT NULL, "                    +
-                WeatherEntry.COLUMN_MAX_TEMP   + " REAL NOT NULL, "                    +
-
-                WeatherEntry.COLUMN_HUMIDITY   + " REAL NOT NULL, "                    +
-                WeatherEntry.COLUMN_PRESSURE   + " REAL NOT NULL, "                    +
-
-                WeatherEntry.COLUMN_WIND_SPEED + " REAL NOT NULL, "                    +
+                // TODO (x1) Add a UNIQUE constraint on the date column to replace on conflict
+                WeatherEntry.COLUMN_DATE       + " INTEGER NOT NULL UNIQUE, " +
+                WeatherEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL, "  +
+                WeatherEntry.COLUMN_MIN_TEMP   + " REAL NOT NULL, " +
+                WeatherEntry.COLUMN_MAX_TEMP   + " REAL NOT NULL, " +
+                WeatherEntry.COLUMN_HUMIDITY   + " REAL NOT NULL, " +
+                WeatherEntry.COLUMN_PRESSURE   + " REAL NOT NULL, " +
+                WeatherEntry.COLUMN_WIND_SPEED + " REAL NOT NULL, " +
                 WeatherEntry.COLUMN_DEGREES    + " REAL NOT NULL" + ");";
-
-//              TODO (1) Add a UNIQUE constraint on the date column to replace on conflict
-
         /*
          * After we've spelled out our SQLite table creation statement above, we actually execute
          * that SQL with the execSQL method of our SQLite database object.

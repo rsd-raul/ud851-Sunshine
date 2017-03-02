@@ -258,19 +258,21 @@ public class MainActivity extends AppCompatActivity implements
         mForecastAdapter.swapCursor(null);
     }
 
-    //  TODO (38) Refactor onClick to accept a long instead of a String as its parameter
+    //  TODO (x38) Refactor onClick to accept a long instead of a String as its parameter
     /**
      * This method is for responding to clicks from our list.
      *
-     * @param weatherForDay String describing weather details for a particular day
+     * @param date long containing the date of the selected item
      */
     @Override
-    public void onClick(String weatherForDay) {
-//      TODO (39) Refactor onClick to build a URI for the clicked date and and pass it with the Intent using setData
-        Context context = this;
-        Class destinationClass = DetailActivity.class;
-        Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, weatherForDay);
+    public void onClick(long date) {
+        Intent intentToStartDetailActivity = new Intent(this, DetailActivity.class);
+
+        Uri itemUri = WeatherContract.WeatherEntry.CONTENT_URI.buildUpon()
+                .appendPath(String.valueOf(date)).build();
+//      TODO (x39) Refactor onClick to build a URI for the clicked date and and pass it with the Intent using setData
+        intentToStartDetailActivity.setData(itemUri);
+
         startActivity(intentToStartDetailActivity);
     }
 

@@ -18,6 +18,7 @@ package com.example.android.sunshine.data;
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,6 +26,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.example.android.sunshine.utilities.SunshineDateUtils;
+
+import static com.example.android.sunshine.data.WeatherContract.WeatherEntry.TABLE_NAME;
 
 /**
  * This class serves as the ContentProvider for all of Sunshine's data. This class allows us to
@@ -293,7 +296,7 @@ public class WeatherProvider extends ContentProvider {
         return cursor;
     }
 
-//  TODO (1) Implement the delete method of the ContentProvider
+//  TODO (x1) Implement the delete method of the ContentProvider
     /**
      * Deletes data at a given URI with optional arguments for more fine tuned deletions.
      *
@@ -304,11 +307,40 @@ public class WeatherProvider extends ContentProvider {
      */
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-        throw new RuntimeException("Student, you need to implement the delete method!");
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int itemsDeleted;
 
-//          TODO (2) Only implement the functionality, given the proper URI, to delete ALL rows in the weather table
+        switch (sUriMatcher.match(uri)){
 
-//      TODO (3) Return the number of rows deleted
+            // TODO (x2) Only implement the functionality, given the proper URI, to delete ALL rows in the weather table
+            case CODE_WEATHER:
+                itemsDeleted =  db.delete(TABLE_NAME, "1", null);
+                break;
+
+            case CODE_WEATHER_WITH_DATE:
+                String date = uri.getPathSegments().get(1);
+
+                // Selection is the _ID column = ?, and the Selection args = the row ID from the URI
+                String dateSelection = WeatherContract.WeatherEntry.COLUMN_DATE + "=?";
+                String[] dateSelectionArgs = new String[]{date};
+
+                // Construct a query as you would normally, passing in the selection/args
+                itemsDeleted =  db.delete(TABLE_NAME,
+                        dateSelection, dateSelectionArgs);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("delete: Unknown uri: " + uri);
+        }
+
+        // Notify the change so the resolver can update the database and any associate UI
+        Context context = getContext();
+        if(context != null && itemsDeleted != 0)
+            context.getContentResolver().notifyChange(uri, null);
+
+        // TODO (x3) Return the number of rows deleted
+        return itemsDeleted;
+
     }
 
     /**

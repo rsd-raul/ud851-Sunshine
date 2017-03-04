@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO (x9) Add a new resource file for boolean values in the res directory and call it bools.xml -->
+<resources>
+
+    <!-- TODO (x10) Add a boolean value for showing notifications by default to res/bools.xml -->
+    <bool name="pref_show_notification_default">true</bool>
+</resources>

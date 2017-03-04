@@ -228,4 +228,9 @@
         Low:<xliff:g id="low">%3$s</xliff:g>
     </string>
 
+
+    <string name="pref_show_notification_key">key_notifications</string>
+    <string name="pref_show_notification_label">Weather Notifications</string>
+    <string name="pref_show_notification_false">Not Enabled</string>
+    <string name="pref_show_notification_true">Enabled</string>
 </resources>

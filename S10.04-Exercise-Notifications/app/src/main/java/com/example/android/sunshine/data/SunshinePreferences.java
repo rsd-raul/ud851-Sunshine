@@ -28,8 +28,8 @@ public final class SunshinePreferences {
      * store the latitude and longitude. We will also use the latitude and longitude to create
      * queries for the weather.
      */
-    public static final String PREF_COORD_LAT = "coord_lat";
-    public static final String PREF_COORD_LONG = "coord_long";
+    private static final String PREF_COORD_LAT = "coord_lat";
+    private static final String PREF_COORD_LONG = "coord_long";
 
     /**
      * Helper method to handle setting location details in Preferences (city name, latitude,
@@ -161,7 +161,7 @@ public final class SunshinePreferences {
      * @param context Used to access SharedPreferences
      * @return UNIX time of when the last notification was shown
      */
-    public static long getLastNotificationTimeInMillis(Context context) {
+    private static long getLastNotificationTimeInMillis(Context context) {
         /* Key for accessing the time at which Sunshine last displayed a notification */
         String lastNotificationKey = context.getString(R.string.pref_last_notification);
 
@@ -178,9 +178,8 @@ public final class SunshinePreferences {
          * time of the last notification was 0, the difference will always be greater than the
          * number of milliseconds in a day and we will show another notification.
          */
-        long lastNotificationTime = sp.getLong(lastNotificationKey, 0);
 
-        return lastNotificationTime;
+        return sp.getLong(lastNotificationKey, 0);
     }
 
     /**
@@ -194,8 +193,7 @@ public final class SunshinePreferences {
     public static long getEllapsedTimeSinceLastNotification(Context context) {
         long lastNotificationTimeMillis =
                 SunshinePreferences.getLastNotificationTimeInMillis(context);
-        long timeSinceLastNotification = System.currentTimeMillis() - lastNotificationTimeMillis;
-        return timeSinceLastNotification;
+        return System.currentTimeMillis() - lastNotificationTimeMillis;
     }
 
     /**
@@ -211,5 +209,12 @@ public final class SunshinePreferences {
         String lastNotificationKey = context.getString(R.string.pref_last_notification);
         editor.putLong(lastNotificationKey, timeOfNotification);
         editor.apply();
+    }
+
+    public static boolean areNotificationsEnabled(Context context){
+        String notificationKey = context.getString(R.string.pref_show_notification_key);
+        boolean notificationDefault = context.getResources().getBoolean(R.bool.pref_show_notification_default);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(notificationKey, notificationDefault);
     }
 }

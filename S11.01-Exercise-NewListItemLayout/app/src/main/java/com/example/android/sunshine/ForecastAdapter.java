@@ -22,6 +22,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.sunshine.utilities.SunshineDateUtils;
@@ -107,7 +108,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
         mCursor.moveToPosition(position);
 
-//      TODO (7) Replace the single TextView with Views to display all of the weather info
+//      TODO (x7) Replace the single TextView with Views to display all of the weather info
 
         /*******************
          * Weather Summary *
@@ -115,21 +116,24 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
          /* Read date from the cursor */
         long dateInMillis = mCursor.getLong(MainActivity.INDEX_WEATHER_DATE);
          /* Get human readable string using our utility method */
-        String dateString = SunshineDateUtils.getFriendlyDateString(mContext, dateInMillis, false);
          /* Use the weatherId to obtain the proper description */
         int weatherId = mCursor.getInt(MainActivity.INDEX_WEATHER_CONDITION_ID);
-        String description = SunshineWeatherUtils.getStringForWeatherCondition(mContext, weatherId);
          /* Read high temperature from the cursor (in degrees celsius) */
         double highInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MAX_TEMP);
          /* Read low temperature from the cursor (in degrees celsius) */
         double lowInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MIN_TEMP);
 
-        String highAndLowTemperature =
-                SunshineWeatherUtils.formatHighLows(mContext, highInCelsius, lowInCelsius);
+        String dateString = SunshineDateUtils.getFriendlyDateString(mContext, dateInMillis, false);
+        String description = SunshineWeatherUtils.getStringForWeatherCondition(mContext, weatherId);
+        String high = SunshineWeatherUtils.formatTemperature(mContext, highInCelsius);
+        String low = SunshineWeatherUtils.formatTemperature(mContext, lowInCelsius);
+        int imageRes = SunshineWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId);
 
-        String weatherSummary = dateString + " - " + description + " - " + highAndLowTemperature;
-
-        forecastAdapterViewHolder.weatherSummary.setText(weatherSummary);
+        forecastAdapterViewHolder.dayTV.setText(dateString);
+        forecastAdapterViewHolder.weatherDescTV.setText(description);
+        forecastAdapterViewHolder.maxTempTV.setText(high);
+        forecastAdapterViewHolder.minTempTV.setText(low);
+        forecastAdapterViewHolder.weatherIV.setImageResource(imageRes);
     }
 
     /**
@@ -163,16 +167,24 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * OnClickListener, since it has access to the adapter and the views.
      */
     class ForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//      TODO (4) Replace the weatherSummary TextView with individual weather detail TextViews
-        final TextView weatherSummary;
+        // TODO (x4) Replace the weatherSummary TextView with individual weather detail TextViews
+        final TextView maxTempTV;
+        final TextView minTempTV;
+        final TextView weatherDescTV;
+        final TextView dayTV;
+        // TODO (x5) Add an ImageView for the weather icon
+        final ImageView weatherIV;
 
-//      TODO (5) Add an ImageView for the weather icon
 
         ForecastAdapterViewHolder(View view) {
             super(view);
 
-//          TODO (6) Get references to all new views and delete this line
-            weatherSummary = (TextView) view.findViewById(R.id.tv_weather_data);
+            // TODO (x6) Get references to all new views and delete this line
+            maxTempTV = (TextView) view.findViewById(R.id.maxTempTV);
+            minTempTV = (TextView) view.findViewById(R.id.minTempTV);
+            weatherDescTV = (TextView) view.findViewById(R.id.weatherDescTV);
+            dayTV = (TextView) view.findViewById(R.id.dayTV);
+            weatherIV = (ImageView) view.findViewById(R.id.weatherIV);
 
             view.setOnClickListener(this);
         }

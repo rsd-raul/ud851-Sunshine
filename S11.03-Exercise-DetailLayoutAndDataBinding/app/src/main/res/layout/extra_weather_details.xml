@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO (x28) Create a layout called extra_weather_details.xml -->
+<!-- TODO (x29) Surround the entire layout with <layout/> tags for data binding -->
+<!-- TODO (x30) Using ConstraintLayout, create the extra weather details layout -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/humidityLabelTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/humidity_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pressureLabelTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/pressure_label"
+            app:layout_constraintLeft_toLeftOf="@+id/humidityLabelTV"
+            app:layout_constraintTop_toBottomOf="@+id/humidityLabelTV" />
+
+        <TextView
+            android:id="@+id/windLabelTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/wind_label"
+            app:layout_constraintLeft_toLeftOf="@+id/pressureLabelTV"
+            app:layout_constraintTop_toBottomOf="@+id/pressureLabelTV" />
+
+        <TextView
+            android:id="@+id/humidityTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="38%"
+            app:layout_constraintTop_toTopOf="@+id/humidityLabelTV"
+            android:layout_marginTop="0dp"
+            app:layout_constraintLeft_toRightOf="@+id/humidityLabelTV"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/pressureTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            tools:text="995 hPa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/humidityTV"
+            app:layout_constraintTop_toTopOf="@+id/pressureLabelTV"
+            android:layout_marginTop="0dp" />
+
+        <TextView
+            android:id="@+id/windTV"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/pressureTV"
+            app:layout_constraintTop_toTopOf="@+id/windLabelTV"
+            tools:text="4km/h NW" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -14,19 +14,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
+<!-- TODO (x1) Create the version of dimens that will be used in landscape mode -->
 <resources>
-    <!-- TODO (x1) Add each of the colors required by Sunshine -->
-
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
-    <color name="colorAccent">#FFD740</color>
-    <color name="colorPrimaryLight">#B3E5FC</color>
-    <color name="white">#FFFFFF</color>
-
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
-    <color name="detail_accent_pane_background">#455A64</color>
-    <color name="detail_accent_label">#90A4AE</color>
-    <color name="activated">#E0E0E0</color>
-
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="forecast_detail_horizontal_padding">16dp</dimen>
+    <dimen name="forecast_detail_vertical_padding">44dp</dimen>
 </resources>

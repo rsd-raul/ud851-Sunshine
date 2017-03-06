@@ -39,8 +39,8 @@
             app:layout_constraintGuide_percent="0.5"/>
 
         <!-- Humidity label -->
-        <!-- TODO (6) Replace the appropriate attributes with the DetailLabel style -->
-        <TextView
+        <!-- TODO (x6) Replace the appropriate attributes with the DetailLabel style -->
+        <TextView style="@style/DetailLabel"
             android:id="@+id/humidity_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,8 +53,8 @@
             app:layout_constraintVertical_bias="0.33"/>
 
         <!-- Humidity measurement -->
-        <!-- TODO (7) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
-        <TextView
+        <!-- TODO (x7) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
+        <TextView style="@style/ExtraWeatherMeasurement"
             android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,8 +64,8 @@
             tools:text="38%"/>
 
         <!-- Pressure label -->
-        <!-- TODO (8) Replace the appropriate attributes with the DetailLabel style -->
-        <TextView
+        <!-- TODO (x8) Replace the appropriate attributes with the DetailLabel style -->
+        <TextView style="@style/DetailLabel"
             android:id="@+id/pressure_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,8 +77,8 @@
             app:layout_constraintTop_toTopOf="@+id/extra_details"/>
 
         <!-- Pressure measurement -->
-        <!-- TODO (9) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
-        <TextView
+        <!-- TODO (x9) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
+        <TextView style="@style/ExtraWeatherMeasurement"
             android:id="@+id/pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,8 +88,8 @@
             tools:text="995 hPa"/>
 
         <!-- Wind label -->
-        <!-- TODO (10) Replace the appropriate attributes with the DetailLabel style -->
-        <TextView
+        <!-- TODO (x10) Replace the appropriate attributes with the DetailLabel style -->
+        <TextView style="@style/DetailLabel"
             android:id="@+id/wind_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,8 +102,8 @@
             app:layout_constraintVertical_bias="0.65999997"/>
 
         <!-- Wind measurement -->
-        <!-- TODO (11) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
-        <TextView
+        <!-- TODO (x11) Replace the appropriate attributes with the ExtraWeatherMeasurement style -->
+        <TextView style="@style/ExtraWeatherMeasurement"
             android:id="@+id/wind_measurement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
